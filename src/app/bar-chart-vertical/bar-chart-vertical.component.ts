@@ -23,6 +23,7 @@ export class BarChartVerticalComponent implements OnInit {
   svg: any;
   g: any;
   dataTest:any;
+  color: any;
   constructor() {
     this.width = 900 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
@@ -40,6 +41,8 @@ export class BarChartVerticalComponent implements OnInit {
   }
 
   initSvg() {
+    this.color = d3Scale.scaleOrdinal()
+    .range(['#FFA500', '#00FF00', '#FF0000', '#6b486b', '#FF00FF', '#d0743c', '#00FA9A']);
     this.svg = d3.select('#barChartVertical')
       .append('svg')
       .attr('width', '100%')
@@ -84,7 +87,7 @@ export class BarChartVerticalComponent implements OnInit {
       .attr('x', (d:  any) => this.x(d.DATE))
       .attr('y', (d:  any) => this.y(Number(d.WITHDRAWALS)))
       .attr('width', this.x.bandwidth())
-      .attr('fill', '#498bfc')
+      .attr('fill',(d: any) => this.color(d.DATE) )
       .attr('height', (d:  any) => this.height - this.y(Number(d.WITHDRAWALS)));
   }
 
