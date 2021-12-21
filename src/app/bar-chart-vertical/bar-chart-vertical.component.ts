@@ -29,8 +29,6 @@ export class BarChartVerticalComponent implements OnInit {
   }
   
   ngOnInit() {
-    console.log("1");
-    //
     d3Csv.csv("./assets/data/DataSet1.csv").then(data => {
       this.initSvg();
       this.initAxis(data);
@@ -52,11 +50,6 @@ export class BarChartVerticalComponent implements OnInit {
   }
 
   initAxis(data:any) {
-    console.log(data);
-    
-    console.log(d3Array.max(data, (d:any) => Number(d.WITHDRAWALS)));
-   (data.map((d:any) =>  console.log(d.DATE)));
-    
     this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.1);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
     this.x.domain(data.map((d:any) => d.DATE));

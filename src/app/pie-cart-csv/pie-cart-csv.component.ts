@@ -4,13 +4,14 @@ import { StatsPieChart } from '../../assets/data/data';
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
+import * as d3Csv from 'd3';
 
 @Component({
-  selector: 'app-pie-chart',
-  templateUrl: './pie-chart.component.html',
-  styleUrls: ['./pie-chart.component.scss']
+  selector: 'app-pie-cart-csv',
+  templateUrl: './pie-cart-csv.component.html',
+  styleUrls: ['./pie-cart-csv.component.scss']
 })
-export class PieChartComponent implements OnInit {
+export class PieCartCsvComponent implements OnInit {
 
   title = 'D3 Pie Chart in Angular 10';
 
@@ -33,8 +34,13 @@ export class PieChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initSvg();
-    this.drawPie();
+   
+
+    d3Csv.csv("./assets/data/DataSet1.csv").then(data => {
+      this.initSvg();
+    this.drawPie(data);
+      
+    });
   }
 
   initSvg() {
@@ -53,9 +59,9 @@ export class PieChartComponent implements OnInit {
 
     this.pie = d3Shape.pie()
         .sort(null)
-        .value((d: any) => d.electionP);
+        .value((d: any) => Number(d.WITHDRAWALS));
 
-    this.svg = d3.select('#pieChart')
+    this.svg = d3.select('#pieChartCsv')
         .append('svg')
         .attr('width', '100%')
         .attr('height', '100%')
@@ -64,19 +70,20 @@ export class PieChartComponent implements OnInit {
         .attr('transform', 'translate(' + Math.min(this.width, this.height) / 2 + ',' + Math.min(this.width, this.height) / 2 + ')');
   }
 
-  drawPie() {
+  drawPie(data:any) {
+    
     const g = this.svg.selectAll('.arc')
-        .data(this.pie(StatsPieChart))
+        .data(this.pie(data))
         .enter().append('g')
         .attr('class', 'arc');
     g.append('path').attr('d', this.arc)
-        .style('fill', (d: any) => this.color(d.data.party));
+        .style('fill', (d: any) => this.color(d.data.DATE) );
     g.append('text').attr('transform', (d: any) => 'translate(' + this.labelArc.centroid(d) + ')')
         .attr('dy', '.35em')
-        .text((d: any) => d.data.party);
+        .text((d: any) => d.data.DATE);
 
     g.append('text').attr('transform', (d: any) => 'translate(' + this.labelPer.centroid(d) + ')')
         .attr('dy', '.35em')
-        .text((d: any) => d.data.electionP + '%');
+        .text((d: any) => Number(d.data.WITHDRAWALS) + '%');
   }
 }

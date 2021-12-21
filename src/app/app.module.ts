@@ -7,12 +7,14 @@ import { BarChartVerticalComponent } from './bar-chart-vertical/bar-chart-vertic
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PieCartCsvComponent } from './pie-cart-csv/pie-cart-csv.component';
 @NgModule({
   declarations: [
     AppComponent,
     BarChartVerticalComponent,
     BarChartComponent,
-    PieChartComponent
+    PieChartComponent,
+    PieCartCsvComponent
   ],
   imports: [
     BrowserModule,
