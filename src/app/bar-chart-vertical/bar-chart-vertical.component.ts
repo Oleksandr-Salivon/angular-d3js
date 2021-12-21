@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StatsBarChart, StatsBarChartVertical } from '../../assets/data/data';
+// import { StatsBarChart, StatsBarChartVertical } from '../../assets/data/data';
 
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
@@ -14,7 +14,7 @@ import * as d3Csv from 'd3';
 })
 export class BarChartVerticalComponent implements OnInit {
   currentRate = 8;
-  title = 'D3 Barchart with Angular 10';
+  title = 'D3 BarchartVertical with Angular 10';
   width: number;
   height: number;
   margin = { top: 20, right: 20, bottom: 30, left: 40 };
@@ -34,16 +34,15 @@ export class BarChartVerticalComponent implements OnInit {
     d3Csv.csv("./assets/data/DataSet1.csv").then(data => {
       this.initSvg();
       this.initAxis(data);
-      this.drawBars(data)
       this.drawAxis();
-      console.log("2");
+      this.drawBars(data)
       
     });
     
   }
 
   initSvg() {
-    this.svg = d3.select('#barChart')
+    this.svg = d3.select('#barChartVertical')
       .append('svg')
       .attr('width', '100%')
       .attr('height', '100%')
@@ -53,21 +52,19 @@ export class BarChartVerticalComponent implements OnInit {
   }
 
   initAxis(data:any) {
-console.log(data);
-
-
-
+    console.log(data);
+    
+    console.log(d3Array.max(data, (d:any) => Number(d.WITHDRAWALS)));
+   (data.map((d:any) =>  console.log(d.DATE)));
+    
     this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.1);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
-    this.x.domain(data.map((d:any) => d.PARTICULARS));
+    this.x.domain(data.map((d:any) => d.DATE));
     this.y.domain([0, d3Array.max(data, (d:any) => Number(d.WITHDRAWALS))]);
-    console.log(this.y);
 
   }
-
+ 
   drawAxis() {
-    console.log("3");
-    
     this.g.append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
@@ -85,19 +82,18 @@ console.log(data);
   }
 
   drawBars(data:any) {
-    console.log(this.x.bandwidth());
-    let dd = (d:any) =>this.y(Number(d.WITHDRAWALS))
-    console.log(dd);
+
     
     this.g.selectAll('.bar')
       .data(data)
       .enter().append('rect')
       .attr('class', 'bar')
-      .attr('x', (d: any) => this.x(d.PARTICULARS))
-      .attr('y', (d: any) => this.y(Number(d.WITHDRAWALS)))
+      .attr('x', (d:  any) => this.x(d.DATE))
+      .attr('y', (d:  any) => this.y(Number(d.WITHDRAWALS)))
       .attr('width', this.x.bandwidth())
       .attr('fill', '#498bfc')
-      .attr('height', (d: any) => this.height - this.y(Number(d.WITHDRAWALS) ));
+      .attr('height', (d:  any) => this.height - this.y(Number(d.WITHDRAWALS)));
   }
 
+  
 }

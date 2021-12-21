@@ -77,11 +77,11 @@ export class BarChartComponent implements OnInit {
       .data(StatsBarChart)
       .enter().append('rect')
       .attr('class', 'bar')
-      .attr('x', (d: { company: any; }) => this.x(d.company))
-      .attr('y', (d: { frequency: any; }) => this.y(d.frequency))
+      .attr('x', (d:  any) => this.x(d.company))
+      .attr('y', (d:  any) => this.y(d.frequency))
       .attr('width', this.x.bandwidth())
       .attr('fill', '#498bfc')
-      .attr('height', (d: { frequency: any; }) => this.height - this.y(d.frequency));
+      .attr('height', (d:  any) => this.height - this.y(d.frequency));
   }
 
 }
