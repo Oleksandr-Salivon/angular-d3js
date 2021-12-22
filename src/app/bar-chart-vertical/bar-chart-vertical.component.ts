@@ -31,6 +31,8 @@ export class BarChartVerticalComponent implements OnInit {
   
   ngOnInit() {
     d3Csv.csv("./assets/data/DataSet1.csv").then(data => {
+      console.log(data);
+      
       this.initSvg();
       this.initAxis(data);
       this.drawAxis();

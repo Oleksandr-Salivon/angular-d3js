@@ -5,13 +5,15 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { BarChartVerticalComponent } from './bar-chart-vertical/bar-chart-vertical.component';
 import { PieCartCsvComponent } from './pie-cart-csv/pie-cart-csv.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 const routes: Routes = [
   { path: '', component: BarChartComponent },
   { path: 'barChart', component: BarChartComponent },
   { path: 'barChartVertical', component: BarChartVerticalComponent },
   { path: 'pieChart', component: PieChartComponent },
-  { path: 'pieChartCsv', component: PieCartCsvComponent }
+  { path: 'pieChartCsv', component: PieCartCsvComponent },
+  { path: 'file-upload', component: FileUploadComponent }
 ];
 
 @NgModule({

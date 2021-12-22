@@ -36,9 +36,11 @@ export class PieCartCsvComponent implements OnInit {
   ngOnInit() {
    
 
-    d3Csv.csv("./assets/data/DataSet1.csv").then(data => {
+    d3Csv.csv("./assets/data/ICICI_DataSet_1.csv").then(data => {
+      let filteredData =  data.filter(d=>Number(d.WITHDRAWALS) >0)
+      console.log( filteredData);
       this.initSvg();
-    this.drawPie(data);
+    this.drawPie(filteredData);
       
     });
   }
@@ -71,19 +73,21 @@ export class PieCartCsvComponent implements OnInit {
   }
 
   drawPie(data:any) {
+    console.log(data);
+    
     
     const g = this.svg.selectAll('.arc')
         .data(this.pie(data))
         .enter().append('g')
         .attr('class', 'arc');
     g.append('path').attr('d', this.arc)
-        .style('fill', (d: any) => this.color(d.data.DATE) );
+        .style('fill', (d: any) => this.color(d.data.PARTICULARS) );
     g.append('text').attr('transform', (d: any) => 'translate(' + this.labelArc.centroid(d) + ')')
         .attr('dy', '.35em')
-        .text((d: any) => d.data.DATE);
+        .text((d: any) => d.data.PARTICULARS);
 
     g.append('text').attr('transform', (d: any) => 'translate(' + this.labelPer.centroid(d) + ')')
         .attr('dy', '.35em')
-        .text((d: any) => Number(d.data.WITHDRAWALS) + '%');
+        .text((d: any) => Number(d.data.WITHDRAWALS) + ' USD');
   }
 }
