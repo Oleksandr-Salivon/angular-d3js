@@ -1,0 +1,62 @@
+[ 
+    {
+          "date": "24 JUN 2019 07:12",
+          "activity": "Maliga-Marie's",
+          "rewards_points": "$0.99",
+          "amount_spent": "$64.10"
+        },
+        {
+          "date": "25 JUN 2019 17:55",
+          "activity": "Downson'sMarket-Atlanta",
+          "rewards_points": "$0.59",
+          "amount_spent": "$87.22"
+        },
+        {
+          "date": "25 JUN 2019 09:22",
+          "activity": "KMART-GA",
+          "rewards_points": "$0.80",
+          "amount_spent": "$106.90"
+        },
+        {
+          "date": "2 JUL 2019 18:12",
+          "activity": "FloridaShadowHotel",
+          "rewards_points": "$1.25",
+          "amount_spent": "$90.00"
+        },
+        {
+          "date": "3 JUL 2019 21:12",
+          "activity": "Cafede'Orient-FL",
+          "rewards_points": "$0.02",
+          "amount_spent": "$12.20"
+        },
+        {
+          "date": "3 JUL 2019 12:54",
+          "activity": "YuenShirts",
+          "rewards_points": "$1.01",
+          "amount_spent": "$59.10"
+        },
+        {
+          "date": "10 JUL 2019 08:10",
+          "activity": "DeltaAirlines",
+          "rewards_points": "$2.00",
+          "amount_spent": "$120.00"
+        },
+        {
+          "date": "11 JUL 2019 19:01",
+          "activity": "Publix-Marietta",
+          "rewards_points": "$0.40",
+          "amount_spent": "$82.99"
+        },
+        {
+          "date": "13 JUL 2019 08:11",
+          "activity": "JiffyLube",
+          "rewards_points": "$0.10",
+          "amount_spent": "$40.20"
+        },
+        {
+          "date": "15 JUL 2019 07:40",
+          "activity": "StarbucksRoswellRoad",
+          "rewards_points": "$0.04",
+          "amount_spent": "$8.10"
+        }
+    ]

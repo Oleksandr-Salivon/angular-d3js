@@ -33,14 +33,40 @@ export class PieCartCsvComponent implements OnInit {
     this.radius = Math.min(this.width, this.height) / 2;
   }
 
+  // test(){
+  //   let params : RequestInit = {
+  //     mode: "no-cors"
+  //   }
+  //   const data =  d3Csv.json('http://127.0.0.1:8000/docs/',  params ).then(d => console.log(d)
+  //   )
+  //   console.log(data);
+    
+  // }
+  test(data:any){
+    let userCredit ;
+    userCredit = data[0].userCredit
+    // console.log(Number(userCredit[0].amount.substring(1)));
+    console.log(userCredit);
+    return userCredit
+    
+  }
   ngOnInit() {
+    // this.test()
+  // d3Csv.json('https://android-kanini-course.cloud:442/books' )
+  // console.log( d3Csv.json('https://android-kanini-course.cloud:442/books',  params ));
+ 
+//     d3Csv.json('http://127.0.0.1:8000/' ).then(data => {
+//       this.test(data)
+// // console.log(data);
+//    })
    
-
-    d3Csv.csv("./assets/data/ICICI_DataSet_1.csv").then(data => {
-      let filteredData =  data.filter(d=>Number(d.WITHDRAWALS) >0)
-      console.log( filteredData);
+    d3Csv. json("http://127.0.0.1:8000/").then(data => {
+      this.test(data)
+    
+      // let filteredData =  this.test(data).filter((d:any)=>Number(d.WITHDRAWALS) >0)
+      // console.log( filteredData);
       this.initSvg();
-    this.drawPie(filteredData);
+    this.drawPie(this.test(data));
       
     });
   }
@@ -61,7 +87,7 @@ export class PieCartCsvComponent implements OnInit {
 
     this.pie = d3Shape.pie()
         .sort(null)
-        .value((d: any) => Number(d.WITHDRAWALS));
+        .value((d: any) => Number(d.amount));
 
     this.svg = d3.select('#pieChartCsv')
         .append('svg')
@@ -81,13 +107,13 @@ export class PieCartCsvComponent implements OnInit {
         .enter().append('g')
         .attr('class', 'arc');
     g.append('path').attr('d', this.arc)
-        .style('fill', (d: any) => this.color(d.data.PARTICULARS) );
+        .style('fill', (d: any) => this.color(d.data.activity) );
     g.append('text').attr('transform', (d: any) => 'translate(' + this.labelArc.centroid(d) + ')')
         .attr('dy', '.35em')
         .text((d: any) => d.data.PARTICULARS);
 
     g.append('text').attr('transform', (d: any) => 'translate(' + this.labelPer.centroid(d) + ')')
         .attr('dy', '.35em')
-        .text((d: any) => Number(d.data.WITHDRAWALS) + ' USD');
+        .text((d: any) => "$"+Number(d.data.amount) );
   }
 }

@@ -28,17 +28,37 @@ export class BarChartVerticalComponent implements OnInit {
     this.width = 900 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
   }
-  
+  test(data:any){
+    let userCredit ;
+    userCredit = data[0].userCredit
+    // console.log(Number(userCredit[0].amount.substring(1)));
+    console.log(userCredit);
+    return userCredit
+    
+  }
   ngOnInit() {
-    d3Csv.csv("./assets/data/DataSet1.csv").then(data => {
-      console.log(data);
-      
+    d3Csv. json("http://127.0.0.1:8000/").then(data => {
+      this.test(data)
+    
+      // let filteredData =  this.test(data).filter((d:any)=>Number(d.WITHDRAWALS) >0)
+      // console.log( filteredData);
       this.initSvg();
-      this.initAxis(data);
+      this.initAxis(this.test(data));
       this.drawAxis();
-      this.drawBars(data)
+      this.drawBars(this.test(data))
       
     });
+
+    
+    // d3Csv.csv("./assets/data/ICICI_DataSet_1.csv").then(data => {
+    //   console.log(data);
+    //   let filteredData =  data.filter(d=>Number(d.WITHDRAWALS) >0)
+    //   this.initSvg();
+    //   this.initAxis(filteredData);
+    //   this.drawAxis();
+    //   this.drawBars(filteredData)
+      
+    // });
     
   }
 
@@ -57,8 +77,8 @@ export class BarChartVerticalComponent implements OnInit {
   initAxis(data:any) {
     this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.1);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
-    this.x.domain(data.map((d:any) => d.DATE));
-    this.y.domain([0, d3Array.max(data, (d:any) => Number(d.WITHDRAWALS))]);
+    this.x.domain(data.map((d:any) => d.activity));
+    this.y.domain([0, d3Array.max(data, (d:any) => d.amount)]);
 
   }
  
@@ -86,11 +106,11 @@ export class BarChartVerticalComponent implements OnInit {
       .data(data)
       .enter().append('rect')
       .attr('class', 'bar')
-      .attr('x', (d:  any) => this.x(d.DATE))
-      .attr('y', (d:  any) => this.y(Number(d.WITHDRAWALS)))
+      .attr('x', (d:  any) => this.x(d.activity))
+      .attr('y', (d:  any) => this.y(d.amount))
       .attr('width', this.x.bandwidth())
-      .attr('fill',(d: any) => this.color(d.DATE) )
-      .attr('height', (d:  any) => this.height - this.y(Number(d.WITHDRAWALS)));
+      .attr('fill',(d: any) => this.color(d.activity) )
+      .attr('height', (d:  any) => this.height - this.y(d.amount));
   }
 
   

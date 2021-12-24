@@ -1,6 +1,7 @@
 export const StatsPieChart: any[] = [
     {party: 'BJP', electionP: 56, test: 49},
     {party: 'INC', electionP: 18, test: 19},
+    {party: 'BJP', electionP: 46, test: 49},
     {party: 'AA', electionP: 10, test: 29},
     {party: 'CPI', electionP: 5, test: 119},
     {party: 'CPI-M', electionP: 5, test: 49},
@@ -20,8 +21,8 @@ export const StatsBarChart: Employee[] = [
     {company: 'Facebook', frequency: 70000},
     {company: 'TCS', frequency: 12000},
     {company: 'Google', frequency: 110000},
-    {company: 'Google7', frequency: 1000},
-    {company: 'Google8', frequency: 110000},
+    {company: 'Google', frequency: 1000},
+    {company: 'Google', frequency: 110000},
     {company: 'Wipro', frequency: 5000},
     {company: 'EMC', frequency: 4000}
 ];

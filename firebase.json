@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "public": "dist/angular-d3js",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "database": {
+    "rules": "database.rules.json"
+  }
+}

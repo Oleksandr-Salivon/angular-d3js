@@ -1,14 +1,17 @@
 <div class="text-center">
     <input class="form-control" type="file" 
-            (change)="onChange($event)">
-  
+            (change)="onChange($event)" >
+            <label class="custom-file-label" for="customInput">Choose file...</label>      
     <button (click)="onUpload()" 
         class="btn btn-success">
         Upload
     </button>
 </div>
-  
-<!-- Shareable short link of  uoloaded file -->
+<div class="custom-file">
+    <input type="file" class="custom-file-input" id="customInput" required>
+    <label class="custom-file-label" for="customInput">Choose file...</label>
+</div>
+<!-- Shareable short link of  uploaded file -->
 <div class="container text-center jumbotron"
     *ngIf="shortLink">
     <h2> Visit Here</h2>
