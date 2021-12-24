@@ -8,7 +8,7 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
   <img
-  width="100"
+  width="200"
   alt="Angular Logo"
   src="../assets/Kanini-Logo.svg"
   />
@@ -23,11 +23,18 @@
   </svg>
 
 </div>
-<div class="container m-t-6">
-  <button type="button" class="btn btn-success m-3" routerLink="/barChart">Bar Chart</button>
-  <button type="button" class="btn btn-success m-3" routerLink="/pieChart">Pie Chart</button>
-  <button type="button" class="btn btn-success m-3" routerLink="/barChartVertical">Bar Chart Vertical</button>
-  <button type="button" class="btn btn-success m-3" routerLink="/pieChartCsv">Pie Chart  CSV</button>
-  <button type="button" class="btn btn-success m-3" routerLink="/file-upload">file-upload</button>
-</div>
-<router-outlet></router-outlet>
+<div class="container m-1">
+  <div class="row"> 
+    <div class="col-3">
+      <button type="button" class="btn btn-success m-3 col" routerLink="/barChartVertical">Bar Chart Analytic</button>
+      <button type="button" class="btn btn-success m-3 col" routerLink="/pieChartCsv">Pie Chart Analytic</button>
+      <button type="button" class="btn btn-success m-3 col" routerLink="/barChart">Bar Chart Analytic by Activity</button>
+      <button type="button" class="btn btn-success m-3 col" routerLink="/file-upload">file-upload</button>
+    </div>
+
+    <router-outlet class="col"></router-outlet>
+  </div>
+
+
+    <!-- <button type="button" class="btn btn-success m-3" routerLink="/pieChart">Pie Chart</button> -->
+  </div>

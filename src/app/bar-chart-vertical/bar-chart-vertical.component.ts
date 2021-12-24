@@ -10,7 +10,7 @@ import * as d3Csv from 'd3';
 @Component({
   selector: 'app-bar-chart-vertical',
   templateUrl: './bar-chart-vertical.component.html',
-  styleUrls: ['./bar-chart-vertical.component.scss']
+  styleUrls: ['./bar-chart-vertical.component.scss'],
 })
 export class BarChartVerticalComponent implements OnInit {
   currentRate = 8;
@@ -22,96 +22,118 @@ export class BarChartVerticalComponent implements OnInit {
   y: any;
   svg: any;
   g: any;
-  dataTest:any;
+  dataTest: any;
   color: any;
   constructor() {
     this.width = 900 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
   }
-  test(data:any){
-    let userCredit ;
-    userCredit = data[0].userCredit
-    // console.log(Number(userCredit[0].amount.substring(1)));
+  convertDataToRecords(data: any) {
+    console.log(data);
+    this.title = `Analytic ${data[0].userName} spending`;
+    let userCredit = data[0].userCredit;
     console.log(userCredit);
-    return userCredit
-    
+    return userCredit;
   }
   ngOnInit() {
-    d3Csv. json("http://127.0.0.1:8000/").then(data => {
-      this.test(data)
-    
-      // let filteredData =  this.test(data).filter((d:any)=>Number(d.WITHDRAWALS) >0)
-      // console.log( filteredData);
-      this.initSvg();
-      this.initAxis(this.test(data));
-      this.drawAxis();
-      this.drawBars(this.test(data))
-      
-    });
+    d3Csv.json('http://127.0.0.1:8000/').then((data) => {
+      let convertedData = this.convertDataToRecords(data);
 
-    
-    // d3Csv.csv("./assets/data/ICICI_DataSet_1.csv").then(data => {
-    //   console.log(data);
-    //   let filteredData =  data.filter(d=>Number(d.WITHDRAWALS) >0)
-    //   this.initSvg();
-    //   this.initAxis(filteredData);
-    //   this.drawAxis();
-    //   this.drawBars(filteredData)
-      
-    // });
-    
+      this.initSvg();
+      this.initAxis(convertedData);
+      this.drawAxis();
+      this.drawBars(convertedData);
+    });
   }
 
   initSvg() {
-    this.color = d3Scale.scaleOrdinal()
-    .range(['#FFA500', '#00FF00', '#FF0000', '#6b486b', '#FF00FF', '#d0743c', '#00FA9A']);
-    this.svg = d3.select('#barChartVertical')
+    this.color = d3Scale
+      .scaleOrdinal()
+      .range([
+        '#FFA500',
+        '#00FF00',
+        '#FF0000',
+        '#6b486b',
+        '#FF00FF',
+        '#d0743c',
+        '#00FA9A',
+      ]);
+    this.svg = d3
+      .select('#barChartVertical')
       .append('svg')
-      .attr('width', '100%')
+      .attr('width', '140%')
       .attr('height', '100%')
       .attr('viewBox', '0 0 900 500');
-    this.g = this.svg.append('g')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+    this.g = this.svg
+      .append('g')
+      .attr(
+        'transform',
+        'translate(' + this.margin.left + ',' + this.margin.top + ')'
+      );
   }
 
-  initAxis(data:any) {
+  initAxis(data: any) {
     this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.1);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
-    this.x.domain(data.map((d:any) => d.activity));
-    this.y.domain([0, d3Array.max(data, (d:any) => d.amount)]);
-
+    this.x.domain(data.map((d: any) => d.date));
+    this.y.domain([0, d3Array.max(data, (d: any) => d.amount)]);
   }
- 
+
   drawAxis() {
-    this.g.append('g')
+    this.g
+      .append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
-      .call(d3Axis.axisBottom(this.x));
-    this.g.append('g')
+      .call(d3Axis.axisBottom(this.x))
+      .attr('font-family', 'sans-serif')
+      .attr('font-size', '18px')
+      .attr('text-anchor', 'middle');
+    this.g
+      .append('g')
       .attr('class', 'axis axis--y')
       .call(d3Axis.axisLeft(this.y))
+      .attr('font-size', '18px')
       .append('text')
       .attr('class', 'axis-title')
       .attr('transform', 'rotate(-90)')
-      .attr('y', 6)
+      .attr('y', 10)
       .attr('dy', '0.71em')
       .attr('text-anchor', 'end')
-      .text('Frequency');
+      .text('Amount')
+      .attr('font-family', 'sans-serif')
+      .attr('font-size', '18px')
+      .attr('fill', 'black');
   }
 
-  drawBars(data:any) {
-
-    
-    this.g.selectAll('.bar')
+  drawBars(data: any) {
+    const bar = this.g
+      .selectAll('.bar')
       .data(data)
-      .enter().append('rect')
-      .attr('class', 'bar')
-      .attr('x', (d:  any) => this.x(d.activity))
-      .attr('y', (d:  any) => this.y(d.amount))
-      .attr('width', this.x.bandwidth())
-      .attr('fill',(d: any) => this.color(d.activity) )
-      .attr('height', (d:  any) => this.height - this.y(d.amount));
-  }
+      .enter();
 
-  
+
+    bar.append('rect')
+      .attr('class', 'bar')
+      .attr('x', (d: any) => this.x(d.date))
+      .attr('y', (d: any) => this.y(d.amount))
+      .attr('width', this.x.bandwidth())
+      .attr('font-family', 'sans-serif')
+      .attr('font-size', '18px')
+      .attr('opacity', '0.5')
+      .attr('fill', (d: any) => this.color(d.date))
+      .attr('height', (d: any) => this.height - this.y(d.amount));
+
+    bar
+      .append('text')
+      .attr("class", "up")
+      .attr('x', (d: any) => this.x(d.date))
+      .attr('y', (d: any) => this.y(d.amount))
+      .attr('dy', '-2.35em')
+      // .attr('dx', '-4.35em')
+      .attr('font-size', '18px')
+      .attr('fill', 'black')
+      .style('font-weight', 'bold')
+      .attr("text-anchor", "start")
+      .text((d: any) => d.activity);
+  }
 }

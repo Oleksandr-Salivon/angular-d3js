@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FileUploadService } from '../file-upload.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class FileUploadComponent implements OnInit {
 	file?: File ; // Variable to store file
 
 	// Inject service
-	constructor(private fileUploadService: FileUploadService) { }
+	constructor(private fileUploadService: FileUploadService, private router: Router) { }
 
 	ngOnInit(): void {
 	}
@@ -28,17 +29,22 @@ export class FileUploadComponent implements OnInit {
 	// OnClick of button Upload
 	onUpload() {
 		this.loading = !this.loading;
-		console.log(this.file);
-		this.fileUploadService.upload(this.file).subscribe(
-			(event: any) => {
-				if (typeof (event) === 'object') {
+		// console.log(this.file);
+		if(this.file){
 
-					// Short link via api response
-					this.shortLink = event.link;
-
-					this.loading = false; // Flag variable
+			this.fileUploadService.upload(this.file).subscribe(
+				(event: any) => {
+					this.router.navigate(['/barChartVertical']);
+					if (typeof (event) === 'object') {
+	
+						// Short link via api response
+						this.shortLink = event.link;
+	
+						this.loading = false; // Flag variable
+						this.router.navigate(['/barChartVertical']);
+					}
 				}
-			}
-		);
+			);
+		}
 	}
 }
