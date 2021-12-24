@@ -163,7 +163,7 @@ console.log(convertedData);
       .attr("class", "up")
       .attr('x', (d: any) => this.x(d.activity))
       .attr('y', (d: any) => this.y(d.amount))
-      .attr('dy', '-2.35em')
+      .attr('dy', '2.35em')
       .attr('dx', '2em')
       .attr('font-size', '18px')
       .attr('fill', 'black')

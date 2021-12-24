@@ -29,16 +29,13 @@ export class BarChartVerticalComponent implements OnInit {
     this.height = 500 - this.margin.top - this.margin.bottom;
   }
   convertDataToRecords(data: any) {
-    console.log(data);
     this.title = `Analytic ${data[0].userName} spending`;
     let userCredit = data[0].userCredit;
-    console.log(userCredit);
     return userCredit;
   }
   ngOnInit() {
     d3Csv.json('http://127.0.0.1:8000/').then((data) => {
       let convertedData = this.convertDataToRecords(data);
-
       this.initSvg();
       this.initAxis(convertedData);
       this.drawAxis();
