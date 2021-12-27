@@ -8,6 +8,9 @@ Install https://github.com/Jeevithasri17/BankStatementAPI
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Future prediction (static file)
+
+https://github.com/MalharSJojare/PredictingBalanceAmt_usingLSTM
 
 ## Build
 
